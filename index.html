@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あの娘HIMITSUスポット | Official Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;900&family=Shippori+Mincho:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#11101c;
+    --night2:#1b1930;
+    --neon:#ff2e87;
+    --neon-soft:rgba(255,46,135,.35);
+    --amber:#ffb04a;
+    --cream:#f4ecdf;
+    --violet:#5b4b8a;
+    --line:rgba(244,236,223,.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--night);
+    color:var(--cream);
+    font-family:'Noto Sans JP', sans-serif;
+    overflow-x:hidden;
+    font-weight:300;
+    letter-spacing:.02em;
+  }
+  ::selection{ background:var(--neon); color:var(--night); }
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:40;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw; backdrop-filter:blur(6px);
+    background:linear-gradient(to bottom, rgba(17,16,28,.85), transparent);
+  }
+  .nav-mark{
+    font-family:'Archivo', sans-serif; font-weight:900; font-size:14px;
+    letter-spacing:.12em; text-transform:uppercase;
+  }
+  .nav-links{ display:flex; gap:28px; list-style:none; }
+  .nav-links a{
+    color:var(--cream); text-decoration:none; font-size:12px; letter-spacing:.15em;
+    opacity:.75; transition:opacity .3s, color .3s; position:relative;
+  }
+  .nav-links a:hover{ opacity:1; color:var(--neon); }
+
+  /* ---------- HERO : editorial / international band-site style ---------- */
+  .hero{
+    position:relative; min-height:100svh;
+    display:grid; grid-template-columns:1.1fr .9fr;
+    overflow:hidden;
+    background:var(--night);
+  }
+  .hero-photo{
+    position:relative; overflow:hidden;
+    background-image:url('https://c.pxhere.com/photos/4c/c2/photo-30622.jpg!d');
+    background-size:cover; background-position:center 30%;
+    filter:grayscale(1) contrast(1.2) brightness(.75);
+  }
+  .hero-photo .tint{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(150deg, rgba(255,46,135,.55), transparent 55%),
+      linear-gradient(330deg, rgba(91,75,138,.6), transparent 60%);
+    mix-blend-mode:color;
+  }
+  .hero-photo::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(115deg, rgba(244,236,223,.05) 0 2px, transparent 2px 5px);
+    mix-blend-mode:overlay; opacity:.5;
+  }
+  .hero-photo::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(to right, var(--night) 0%, transparent 12%, transparent 88%, var(--night) 100%);
+  }
+
+  .hero-text{
+    position:relative; z-index:2;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:0 5vw; min-height:100svh;
+  }
+  .eyebrow{
+    font-family:'Archivo', sans-serif; font-weight:700;
+    font-size:11px; letter-spacing:.45em; color:var(--amber); margin-bottom:22px; text-transform:uppercase;
+  }
+  h1.title{
+    font-family:'Anton', sans-serif; font-weight:400; text-transform:uppercase;
+    font-size:clamp(40px, 8.2vw, 104px);
+    line-height:.92;
+    letter-spacing:.01em;
+    color:var(--cream);
+  }
+  h1.title .accent{ color:var(--neon); }
+  h1.title .en{
+    display:block; font-family:'Archivo', sans-serif; font-weight:500; text-transform:none;
+    font-size:clamp(12px, 1.3vw, 15px); letter-spacing:.14em; line-height:1.8; color:var(--cream); opacity:.55; margin-top:30px;
+  }
+  .hero-sub{
+    margin-top:26px; font-size:13.5px; letter-spacing:.04em; opacity:.62; max-width:340px; line-height:2;
+  }
+  .hero-meta{
+    margin-top:46px; display:flex; gap:34px; flex-wrap:wrap;
+  }
+  .hero-meta div{ font-family:'Archivo', sans-serif; }
+  .hero-meta .k{ font-size:10px; letter-spacing:.25em; opacity:.45; text-transform:uppercase; margin-bottom:6px; }
+  .hero-meta .v{ font-size:13px; letter-spacing:.04em; }
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:5vw;
+    font-family:'Archivo', sans-serif; font-size:10px; letter-spacing:.3em; opacity:.5;
+    display:flex; align-items:center; gap:12px; z-index:3; text-transform:uppercase;
+  }
+  .scroll-cue::after{
+    content:''; width:34px; height:1px; background:linear-gradient(90deg, var(--neon), transparent);
+  }
+
+  @media(max-width:880px){
+    .hero{ grid-template-columns:1fr; }
+    .hero-photo{ min-height:42vh; }
+    .hero-text{ min-height:auto; padding:64px 7vw 90px; }
+    .scroll-cue{ display:none; }
+  }
+
+  section{ padding:120px 8vw; position:relative; }
+  .label{
+    font-size:11px; letter-spacing:.4em; color:var(--neon); margin-bottom:18px; display:block;
+  }
+  h2{
+    font-family:'Shippori Mincho', serif; font-weight:600; font-size:clamp(24px,3.4vw,38px);
+    margin-bottom:30px; letter-spacing:.06em;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; border-top:1px solid var(--line); }
+  .about p{ font-size:14.5px; line-height:2.1; opacity:.8; margin-bottom:1.4em; }
+  .about-quote{
+    font-family:'Shippori Mincho', serif; font-size:clamp(20px,2.4vw,28px); line-height:1.9; color:var(--amber);
+  }
+  @media(max-width:760px){ .about{ grid-template-columns:1fr; } }
+
+  /* ---------- MEMBERS ---------- */
+  .members{ border-top:1px solid var(--line); }
+  .member-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line); border:1px solid var(--line); }
+  .member{
+    background:var(--night); padding:54px 38px; position:relative; overflow:hidden;
+    transition:background .4s;
+  }
+  .member:hover{ background:var(--night2); }
+  .member::before{
+    content:attr(data-mark);
+    position:absolute; right:-6px; top:-30px; font-family:'Shippori Mincho', serif; font-weight:800;
+    font-size:130px; color:transparent; -webkit-text-stroke:1px var(--line); opacity:.6; line-height:1;
+  }
+  .m-role{ font-size:11px; letter-spacing:.3em; color:var(--amber); margin-bottom:10px; }
+  .m-name{ font-family:'Shippori Mincho', serif; font-size:30px; font-weight:600; margin-bottom:4px; }
+  .m-name .kana{ display:block; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:13px; letter-spacing:.2em; opacity:.55; margin-top:6px; }
+  .m-desc{ margin-top:22px; font-size:13.5px; line-height:2; opacity:.7; max-width:340px; position:relative; z-index:1; }
+  .m-gear{ margin-top:24px; display:flex; gap:8px; flex-wrap:wrap; }
+  .m-gear span{
+    font-size:10.5px; letter-spacing:.08em; border:1px solid var(--line); padding:6px 12px; border-radius:99px; opacity:.7;
+  }
+  @media(max-width:760px){ .member-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- LIVE ---------- */
+  .live{ border-top:1px solid var(--line); }
+  .live-list{ list-style:none; }
+  .live-item{
+    display:grid; grid-template-columns:120px 1fr auto; gap:24px; align-items:center;
+    padding:24px 0; border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .live-item .date{ color:var(--amber); font-family:'Shippori Mincho', serif; font-size:16px; }
+  .live-item .place{ opacity:.85; }
+  .live-item .place small{ display:block; opacity:.55; font-size:11px; margin-top:4px; letter-spacing:.05em; }
+  .tag{
+    font-size:10px; letter-spacing:.15em; padding:6px 14px; border:1px solid var(--neon); color:var(--neon); border-radius:99px;
+    white-space:nowrap;
+  }
+  @media(max-width:600px){ .live-item{ grid-template-columns:1fr; gap:8px; } }
+
+  /* ---------- DISCO ---------- */
+  .disco{ border-top:1px solid var(--line); }
+  .disco-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+  .disc{
+    aspect-ratio:1/1; border-radius:50%;
+    background:
+      conic-gradient(from 90deg, #1b1930, #2a2440, #1b1930),
+      radial-gradient(circle at 50% 50%, var(--night) 0 22%, transparent 23%);
+    position:relative; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line);
+    animation: spin 18s linear infinite;
+  }
+  .disco-grid:hover .disc{ animation-play-state:paused; }
+  .disco-grid:hover .disc--playable::before{ animation-play-state:paused; }
+  .disc::after{ content:''; width:16%; aspect-ratio:1/1; background:var(--night); border-radius:50%; border:1px solid var(--line); }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .disc-cap{ text-align:center; margin-top:18px; }
+  .disc-cap .t{ font-family:'Shippori Mincho', serif; font-size:15px; }
+  .disc-cap .y{ font-size:11px; opacity:.5; margin-top:4px; letter-spacing:.1em; }
+  @media(max-width:700px){ .disco-grid{ grid-template-columns:1fr; gap:50px; } .disc{ max-width:220px; margin-inline:auto;} }
+  .disc--playable{ cursor:pointer; }
+  .disc--playable::before{
+    content:''; position:absolute; top:50%; left:53%; transform:translate(-50%,-50%);
+    width:0; height:0; border-style:solid; border-width:9px 0 9px 14px;
+    border-color:transparent transparent transparent var(--cream);
+    z-index:2; opacity:.9; pointer-events:none; filter:drop-shadow(0 0 6px rgba(0,0,0,.4));
+    animation: counter-spin 18s linear infinite;
+  }
+  @keyframes counter-spin{ to{ transform:translate(-50%,-50%) rotate(-360deg); } }
+  .disc--playable.playing::before{
+    border-style:none; width:5px; height:18px; background:var(--cream);
+    box-shadow:9px 0 0 var(--cream); left:50%;
+    animation-duration:2.6s;
+  }
+  .disc--playable.playing{ animation-duration:2.6s; box-shadow:0 0 0 3px var(--neon-soft); }
+  .disc-cap .y.now-playing{ color:var(--neon); }
+
+  /* ---------- GOODS : white product-card style ---------- */
+  .goods{ border-top:1px solid var(--line); }
+  .goods-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; }
+  .goods-item{
+    background:var(--cream); border-radius:4px; overflow:hidden;
+    display:flex; flex-direction:column; transition:transform .35s ease;
+  }
+  .goods-item:hover{ transform:translateY(-4px); }
+  .goods-visual{
+    width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    background:var(--cream); padding:18px; box-sizing:border-box;
+  }
+  .goods-visual svg{ width:100%; height:100%; }
+  .goods-caption{
+    background:#0c0a14; padding:20px 18px 26px; text-align:center;
+  }
+  .g-tag{ font-size:10px; letter-spacing:.2em; color:var(--neon); margin-bottom:8px; text-transform:uppercase; }
+  .g-name{
+    font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--cream); margin-bottom:10px; line-height:1.6;
+  }
+  .g-price{ font-family:'Archivo', sans-serif; font-size:14px; letter-spacing:.04em; color:var(--cream); opacity:.85; margin-bottom:14px; }
+  .g-price .note{ font-size:10.5px; opacity:.6; margin-left:6px; }
+  .g-btn{
+    font-family:'Archivo', sans-serif; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--cream); text-decoration:none; opacity:.55; border-bottom:1px solid transparent;
+    transition:.3s; padding-bottom:2px;
+  }
+  .g-btn:hover{ opacity:1; color:var(--neon); border-color:var(--neon); }
+  @media(max-width:900px){ .goods-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:560px){ .goods-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- CONTACT / FOOT ---------- */
+  .contact{ border-top:1px solid var(--line); text-align:center; }
+  .contact h2{ margin-bottom:16px; }
+  .contact p{ font-size:13px; opacity:.65; max-width:420px; margin:0 auto 36px; line-height:1.9; }
+  .sns{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+  .sns a{
+    color:var(--cream); text-decoration:none; font-size:12px; letter-spacing:.15em;
+    border:1px solid var(--line); padding:12px 26px; border-radius:99px; transition:.3s;
+  }
+  .sns a:hover{ border-color:var(--neon); color:var(--neon); box-shadow:0 0 20px var(--neon-soft); }
+
+  footer{
+    padding:40px 8vw; text-align:center; font-size:10.5px; letter-spacing:.1em; opacity:.4; border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav>
+  <div class="nav-mark">あの娘HIMITSUスポット</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#members">Members</a></li>
+    <li><a href="#live">Live</a></li>
+    <li><a href="#disco">Discography</a></li>
+    <li><a href="#goods">Goods</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-photo">
+    <div class="tint"></div>
+  </div>
+  <div class="hero-text">
+    <div class="eyebrow">Two-Piece Night Rock Unit</div>
+    <h1 class="title">ANOKO<br>HIMITSU<br><span class="accent">SPOT</span>
+      <span class="en">あの娘HIMITSUスポット</span>
+    </h1>
+    <p class="hero-sub">A two-piece built on drums, voice and bass — nothing to hide behind. Songs about the corners of the city only you know about.</p>
+    <div class="hero-meta">
+      <div><div class="k">Formed</div><div class="v">2026 — Saitama, JP</div></div>
+      <div><div class="k">Lineup</div><div class="v">Drums &amp; Vocal / Bass</div></div>
+      <div><div class="k">Genre</div><div class="v">Night Pop / Post-Punk</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<section class="about" id="about">
+  <div>
+    <span class="label">ABOUT</span>
+    <h2>誰も知らない場所へ、<br>二人だけで。</h2>
+  </div>
+  <div>
+    <p class="about-quote">"普段通る道の、ちょっと裏。<br>そこにしかない景色を鳴らすバンド。"</p>
+    <p>あの娘HIMITSUスポットは、ドラム&ボーカルとベースのみで構成される2人組バンド。2026年、地元の小さなスタジオで偶然隣り合った二人が「楽器は2本でいいから、誰も知らない曲をやろう」と意気投合したのが始まり。</p>
+    <p>最小編成だからこそ生まれる隙間と緊張感を武器に、街の灯りと夜の匂いを音に変えていく。ギターを置いたぶん、ドラムの手数とベースラインで景色の奥行きを描くのがこのバンドのやり方。</p>
+    <p>派手な轟音よりも、誰かにそっと教えたくなる"穴場"のような一曲を。聴いた人だけが知っている、自分だけの秘密のスポットを増やすことが、このバンドの合言葉です。</p>
+  </div>
+</section>
+
+<section class="members" id="members">
+  <span class="label" style="margin-left:8vw;">MEMBERS</span>
+  <h2 style="margin-left:8vw;">二人の案内人</h2>
+  <div class="member-grid">
+    <div class="member" data-mark="01">
+      <div class="m-role">DRUMS &amp; VOCAL</div>
+      <div class="m-name">凪 -nagi- <span class="kana">Drums / Vocal</span></div>
+      <p class="m-desc">叩きながら歌う、忙しい先導役。中学時代は吹奏楽部の打楽器パート出身で、手数の多いリズムが持ち味。歌詞はほとんど深夜に書く派。ライブ前は必ずブラックコーヒーを一杯。</p>
+      <div class="m-gear">
+        <span>好きな時間帯：深夜2時</span>
+        <span>担当：地図を描く人</span>
+        <span>影響を受けたもの：シティポップ、雨の音</span>
+      </div>
+    </div>
+    <div class="member" data-mark="02">
+      <div class="m-role">BASS</div>
+      <div class="m-name">歩斗 -ayuto- <span class="kana">Bass</span></div>
+      <p class="m-desc">低音で道の奥行きを作る、もう一人の案内人。派手なソロより"良いベースライン"を黙々と探すタイプ。コーヒーよりウーロン茶派で、機材より靴選びにこだわりがある。</p>
+      <div class="m-gear">
+        <span>好きな時間帯：始発前</span>
+        <span>担当：歩く速度を決める人</span>
+        <span>影響を受けたもの：90'sロック、商店街の匂い</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="live" id="live">
+  <span class="label">LIVE</span>
+  <h2>SCHEDULE</h2>
+  <ul class="live-list">
+    <li class="live-item">
+      <div class="date">07.19</div>
+      <div class="place">未定の小箱 ワンマンライブ<small>OPEN 18:00 / START 19:00</small></div>
+      <span class="tag">COMING SOON</span>
+    </li>
+    <li class="live-item">
+      <div class="date">08.xx</div>
+      <div class="place">対バン企画「夜の抜け道」出演<small>詳細は近日公開</small></div>
+      <span class="tag">準備中</span>
+    </li>
+  </ul>
+</section>
+
+<section class="disco" id="disco">
+  <span class="label">DISCOGRAPHY</span>
+  <h2>音源</h2>
+  <div class="disco-grid">
+    <div>
+      <div class="disc disc--playable" id="demo-disc" onclick="toggleDemo(this)"></div>
+      <div class="disc-cap"><div class="t">1st Demo</div><div class="y" id="demo-status">クリックで再生</div></div>
+    </div>
+    <div>
+      <div class="disc"></div>
+      <div class="disc-cap"><div class="t">未定の曲</div><div class="y">2026</div></div>
+    </div>
+    <div>
+      <div class="disc"></div>
+      <div class="disc-cap"><div class="t">Live Session</div><div class="y">Coming</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="goods" id="goods">
+  <span class="label">GOODS</span>
+  <h2>HIMITSU MERCH</h2>
+  <div class="goods-grid">
+
+    <div class="goods-item">
+      <div class="goods-visual">
+        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="capCrown" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2a2440"/>
+              <stop offset="45%" stop-color="#181530"/>
+              <stop offset="100%" stop-color="#0c0a18"/>
+            </linearGradient>
+            <linearGradient id="capBrim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1c1932"/>
+              <stop offset="100%" stop-color="#08070f"/>
+            </linearGradient>
+            <radialGradient id="capSheen" cx="35%" cy="25%" r="70%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+              <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- cap crown -->
+          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120 L200 128 L40 128 Z" fill="url(#capCrown)" stroke="#000" stroke-width="1"/>
+          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120 L200 128 L40 128 Z" fill="url(#capSheen)"/>
+          <!-- panel seams -->
+          <path d="M120 41 L120 128" stroke="#000" stroke-width="1.5" opacity="0.55"/>
+          <path d="M78 48 C70 70 66 100 68 128" stroke="#000" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M162 48 C170 70 174 100 172 128" stroke="#000" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <!-- stitching detail -->
+          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120" fill="none" stroke="#f4ecdf" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.25"/>
+          <!-- brim -->
+          <path d="M30 128 C30 120 35 116 45 116 L195 116 C205 116 210 120 210 128 C210 142 195 151 120 151 C45 151 30 142 30 128 Z" fill="url(#capBrim)" stroke="#000" stroke-width="1"/>
+          <ellipse cx="120" cy="129" rx="90" ry="9" fill="#ffffff" opacity="0.04"/>
+          <!-- button -->
+          <circle cx="120" cy="42" r="4.5" fill="#15132a" stroke="#3a3454" stroke-width="1"/>
+          <!-- logo patch : embroidered stacked type -->
+          <rect x="84" y="74" width="72" height="40" rx="3" fill="#0c0a16" stroke="#3a3454" stroke-width="1.2"/>
+          <text x="120" y="88" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="11" letter-spacing="0.5">ANOKO</text>
+          <text x="120" y="99" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="11" letter-spacing="0.5">HIMITSU</text>
+          <text x="120" y="110" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="12" letter-spacing="0.5">SPOT</text>
+        </svg>
+      </div>
+      <div class="goods-caption">
+        <div class="g-tag">Headwear</div>
+        <div class="g-name">ロゴキャップ</div>
+        <div class="g-price">¥4,500 <span class="note">税込 / フリーサイズ</span></div>
+        <a href="#contact" class="g-btn">問い合わせる</a>
+      </div>
+    </div>
+
+    <div class="goods-item">
+      <div class="goods-visual">
+        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="teeBlackBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2c2a36"/>
+              <stop offset="50%" stop-color="#16151c"/>
+              <stop offset="100%" stop-color="#0a090d"/>
+            </linearGradient>
+            <radialGradient id="teeBlackSheen" cx="38%" cy="20%" r="75%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/>
+              <stop offset="55%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- tee body, flat-lay style -->
+          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
+                fill="url(#teeBlackBody)" stroke="#000" stroke-width="1.4"/>
+          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
+                fill="url(#teeBlackSheen)"/>
+          <!-- fold shadows -->
+          <path d="M96 90 C100 120 100 150 94 172" stroke="#000" stroke-width="6" opacity="0.18" fill="none" stroke-linecap="round"/>
+          <path d="M144 90 C140 120 140 150 146 172" stroke="#000" stroke-width="6" opacity="0.18" fill="none" stroke-linecap="round"/>
+          <!-- collar rib -->
+          <path d="M103 51 C108 64 132 64 137 51" stroke="#000" stroke-width="3.5" fill="none" opacity="0.5"/>
+          <path d="M103 51 C108 64 132 64 137 51" stroke="#3a3838" stroke-width="1.4" fill="none"/>
+          <!-- chest print : stacked poster type -->
+          <text x="120" y="106" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">ANOKO</text>
+          <text x="120" y="123" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">HIMITSU</text>
+          <text x="120" y="144" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="19" letter-spacing="0.5">SPOT</text>
+        </svg>
+      </div>
+      <div class="goods-caption">
+        <div class="g-tag">Apparel — Black</div>
+        <div class="g-name">バンドTシャツ（ブラック）</div>
+        <div class="g-price">¥3,800 <span class="note">税込 / S・M・L</span></div>
+        <a href="#contact" class="g-btn">問い合わせる</a>
+      </div>
+    </div>
+
+    <div class="goods-item">
+      <div class="goods-visual">
+        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="teeWhiteBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fdfbf6"/>
+              <stop offset="50%" stop-color="#e9e4d8"/>
+              <stop offset="100%" stop-color="#d8d2c2"/>
+            </linearGradient>
+            <radialGradient id="teeWhiteSheen" cx="38%" cy="20%" r="75%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+              <stop offset="55%" stop-color="#ffffff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- tee body, flat-lay style -->
+          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
+                fill="url(#teeWhiteBody)" stroke="#8c8369" stroke-width="1.6"/>
+          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
+                fill="url(#teeWhiteSheen)"/>
+          <!-- fold shadows -->
+          <path d="M96 90 C100 120 100 150 94 172" stroke="#000" stroke-width="6" opacity="0.07" fill="none" stroke-linecap="round"/>
+          <path d="M144 90 C140 120 140 150 146 172" stroke="#000" stroke-width="6" opacity="0.07" fill="none" stroke-linecap="round"/>
+          <!-- collar rib -->
+          <path d="M103 51 C108 64 132 64 137 51" stroke="#b8af9b" stroke-width="3.5" fill="none" opacity="0.7"/>
+          <path d="M103 51 C108 64 132 64 137 51" stroke="#cfc7b3" stroke-width="1.4" fill="none"/>
+          <!-- chest print : stacked poster type -->
+          <text x="120" y="106" text-anchor="middle" fill="#15131f" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">ANOKO</text>
+          <text x="120" y="123" text-anchor="middle" fill="#15131f" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">HIMITSU</text>
+          <text x="120" y="144" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="19" letter-spacing="0.5">SPOT</text>
+        </svg>
+      </div>
+      <div class="goods-caption">
+        <div class="g-tag">Apparel — White</div>
+        <div class="g-name">バンドTシャツ（ホワイト）</div>
+        <div class="g-price">¥3,800 <span class="note">税込 / S・M・L</span></div>
+        <a href="#contact" class="g-btn">問い合わせる</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <span class="label">CONTACT</span>
+  <h2>あなただけの抜け道を見つけたら</h2>
+  <p>ライブ出演依頼・取材・お問い合わせはSNSのDM、または下記メールアドレスまで。</p>
+  <div class="sns">
+    <a href="#">X (Twitter)</a>
+    <a href="#">Instagram</a>
+    <a href="#">YouTube</a>
+    <a href="#">mail@himitsu-spot.example</a>
+  </div>
+</section>
+
+<footer>
+  © あの娘HIMITSUスポット — Fan-made unofficial site mockup
+</footer>
+
+<script>
+  // 1st Demo クリック再生：Web Audio API でその場生成する自作フレーズ（著作権フリー）
+  let audioCtx = null;
+  let demoTimer = null;
+  let demoPlaying = false;
+
+  function ensureCtx(){
+    if(!audioCtx){ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    return audioCtx;
+  }
+
+  function playNote(freq, time, dur, type, gainVal){
+    const ctx = ensureCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.linearRampToValueAtTime(gainVal, time + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(time);
+    osc.stop(time + dur + 0.05);
+  }
+
+  // シンプルなナイトポップ風アルペジオ（4拍×2小節）
+  const demoPattern = [
+    [220.00, 0.0, 0.34, 'triangle', 0.16],
+    [277.18, 0.4, 0.34, 'triangle', 0.16],
+    [329.63, 0.8, 0.34, 'triangle', 0.16],
+    [277.18, 1.2, 0.34, 'triangle', 0.16],
+    [246.94, 1.7, 0.34, 'triangle', 0.16],
+    [293.66, 2.1, 0.34, 'triangle', 0.16],
+    [349.23, 2.5, 0.34, 'triangle', 0.16],
+    [293.66, 2.9, 0.34, 'triangle', 0.16],
+  ];
+  const loopLength = 3.4;
+
+  function scheduleLoop(){
+    const ctx = ensureCtx();
+    const start = ctx.currentTime + 0.05;
+    demoPattern.forEach(([freq, offset, dur, type, gainVal]) => {
+      playNote(freq, start + offset, dur, type, gainVal);
+      playNote(freq / 2, start + offset, dur * 1.1, 'sine', gainVal * 0.7); // ベース
+    });
+  }
+
+  function toggleDemo(el){
+    const ctx = ensureCtx();
+    if(ctx.state === 'suspended'){ ctx.resume(); }
+    const status = document.getElementById('demo-status');
+    if(demoPlaying){
+      clearInterval(demoTimer);
+      demoTimer = null;
+      demoPlaying = false;
+      el.classList.remove('playing');
+      status.textContent = 'クリックで再生';
+      status.classList.remove('now-playing');
+    } else {
+      scheduleLoop();
+      demoTimer = setInterval(scheduleLoop, loopLength * 1000);
+      demoPlaying = true;
+      el.classList.add('playing');
+      status.textContent = '♪ Now Playing';
+      status.classList.add('now-playing');
+    }
+  }
+</script>
+
+</body>
+</html>
