@@ -75,7 +75,7 @@
   }
   .hero-photo{
     position:relative; overflow:hidden;
-    background-image:url('https://c.pxhere.com/photos/4c/c2/photo-30622.jpg!d');
+    background-image:url('assets/images/hero.jpg');
     background-size:cover; background-position:center 30%;
     filter:grayscale(1) contrast(1.2) brightness(.75);
   }
@@ -386,6 +386,7 @@
     <div>
       <div class="disc disc--playable" id="demo-disc" onclick="toggleDemo(this)"></div>
       <div class="disc-cap"><div class="t">1st Demo</div><div class="y" id="demo-status">クリックで再生</div></div>
+      <audio id="demo-audio" src="assets/audio/1st-demo.mp4" preload="none"></audio>
     </div>
     <div>
       <div class="disc"></div>
@@ -548,72 +549,34 @@
 </footer>
 
 <script>
-  // 1st Demo クリック再生：Web Audio API でその場生成する自作フレーズ（著作権フリー）
-  let audioCtx = null;
-  let demoTimer = null;
-  let demoPlaying = false;
-
-  function ensureCtx(){
-    if(!audioCtx){ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    return audioCtx;
-  }
-
-  function playNote(freq, time, dur, type, gainVal){
-    const ctx = ensureCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(gainVal, time + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
-    osc.connect(gain).connect(ctx.destination);
-    osc.start(time);
-    osc.stop(time + dur + 0.05);
-  }
-
-  // シンプルなナイトポップ風アルペジオ（4拍×2小節）
-  const demoPattern = [
-    [220.00, 0.0, 0.34, 'triangle', 0.16],
-    [277.18, 0.4, 0.34, 'triangle', 0.16],
-    [329.63, 0.8, 0.34, 'triangle', 0.16],
-    [277.18, 1.2, 0.34, 'triangle', 0.16],
-    [246.94, 1.7, 0.34, 'triangle', 0.16],
-    [293.66, 2.1, 0.34, 'triangle', 0.16],
-    [349.23, 2.5, 0.34, 'triangle', 0.16],
-    [293.66, 2.9, 0.34, 'triangle', 0.16],
-  ];
-  const loopLength = 3.4;
-
-  function scheduleLoop(){
-    const ctx = ensureCtx();
-    const start = ctx.currentTime + 0.05;
-    demoPattern.forEach(([freq, offset, dur, type, gainVal]) => {
-      playNote(freq, start + offset, dur, type, gainVal);
-      playNote(freq / 2, start + offset, dur * 1.1, 'sine', gainVal * 0.7); // ベース
-    });
-  }
+  // 1st Demo クリック再生：実音源(mp4)を再生
+  const demoAudio = document.getElementById('demo-audio');
+  const demoDisc = document.getElementById('demo-disc');
+  const demoStatus = document.getElementById('demo-status');
 
   function toggleDemo(el){
-    const ctx = ensureCtx();
-    if(ctx.state === 'suspended'){ ctx.resume(); }
-    const status = document.getElementById('demo-status');
-    if(demoPlaying){
-      clearInterval(demoTimer);
-      demoTimer = null;
-      demoPlaying = false;
-      el.classList.remove('playing');
-      status.textContent = 'クリックで再生';
-      status.classList.remove('now-playing');
+    if(demoAudio.paused){
+      demoAudio.play();
     } else {
-      scheduleLoop();
-      demoTimer = setInterval(scheduleLoop, loopLength * 1000);
-      demoPlaying = true;
-      el.classList.add('playing');
-      status.textContent = '♪ Now Playing';
-      status.classList.add('now-playing');
+      demoAudio.pause();
     }
   }
+
+  demoAudio.addEventListener('play', () => {
+    demoDisc.classList.add('playing');
+    demoStatus.textContent = '♪ Now Playing';
+    demoStatus.classList.add('now-playing');
+  });
+
+  demoAudio.addEventListener('pause', () => {
+    demoDisc.classList.remove('playing');
+    demoStatus.textContent = 'クリックで再生';
+    demoStatus.classList.remove('now-playing');
+  });
+
+  demoAudio.addEventListener('ended', () => {
+    demoAudio.currentTime = 0;
+  });
 </script>
 
 </body>
