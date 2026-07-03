@@ -11,8 +11,9 @@ description: Update the あの娘HIMITSUスポット band website (index.html in
 
 - リポジトリ: `amitth315-arch/anone`(public, デフォルトブランチ `main`)
 - 公開URL: https://amitth315-arch.github.io/anone/
-- GitHub Pagesは `main` ブランチのルート直下を配信するlegacyビルド。push後、追加のビルド手順やActionsワークフローは不要 — GitHub側が自動で反映する。
+- GitHub Pagesのデプロイ方式は **GitHub Actions経由**(`.github/workflows/pages.yml`)。push後、このワークフローが自動起動してビルド・デプロイする。以前はlegacy(Jekyll自動ビルド)方式だったが、原因不明のビルド失敗が頻発したため2026-07-03にActions方式へ切り替え済み。ワークフロー自体は素のファイルをそのままアップロードするだけで、Jekyll処理は行わない。
 - `index.html` が本番サイト。`index_3.html` はドラフト/バックアップ的なファイルで、Pagesからはリンクされていない。**明示的に指示されない限り触らない。**
+- 画像・音源などのメディアファイルは `assets/images/`, `assets/audio/` に置き、`index.html` からは相対パス(例: `assets/images/hero.jpg`)で参照する。base64埋め込みはしない。
 - x-bot(X自動投稿)の管理・デプロイはこのスキルの対象外。サイト本体の更新のみを扱う。
 
 ## 手順
@@ -58,15 +59,23 @@ git push origin main
 
 ### 6. デプロイ確認
 
-push後、GitHub Pagesの反映には通常1分もかからない。以下のいずれかで確認する。
+push後、Actionsのワークフロー実行状況で確認する。
 
 ```
-gh api repos/amitth315-arch/anone/pages
+gh run list --repo amitth315-arch/anone --limit 3
 ```
 
-`status` が `built` で、直近のcommitが反映されていれば成功。念のため実サイト(https://amitth315-arch.github.io/anone/ )を取得して、変更箇所が実際に表示されているかも確認するとより確実。
+直近のpushに対応する「Deploy static site to Pages」の実行が `in_progress` なら、対象のrun IDを使って完了を待つ。
 
-反映が確認できたら、ユーザーに完了と公開URLを報告する。数十秒待っても反映されない場合は、`gh run list` などでビルド失敗がないか調べ、状況をユーザーに共有する。
+```
+gh run watch <run-id> --repo amitth315-arch/anone --exit-status
+```
+
+`success` になったら、実サイト(https://amitth315-arch.github.io/anone/ )を取得して、変更箇所が実際に反映されているかも確認する。
+
+**`gh api repos/amitth315-arch/anone/pages` の `status` フィールドは信用しない** — 実際のビルドはとっくに終わっている(成功でも失敗でも)のに、このエンドポイントが古い `building`/`errored` を返し続けるという事象が起きた実績がある(2026-07-03)。デプロイの成否は必ず `gh run list` / `gh run watch`(Actionsの実行結果)で判断すること。
+
+ワークフローが `failure` になった場合は、`gh run view <run-id> --repo amitth315-arch/anone --log-failed` でログを確認し、原因をユーザーに共有してから対処する。
 
 ## やらないこと
 
