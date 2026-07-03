@@ -203,7 +203,7 @@
   .disco{ border-top:1px solid var(--line); }
   .disco-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
   .disc{
-    aspect-ratio:1/1; border-radius:50%;
+    aspect-ratio:1/1; border-radius:50%; overflow:hidden;
     background:
       conic-gradient(from 90deg, #1b1930, #2a2440, #1b1930),
       radial-gradient(circle at 50% 50%, var(--night) 0 22%, transparent 23%);
@@ -213,7 +213,12 @@
   }
   .disco-grid:hover .disc{ animation-play-state:paused; }
   .disco-grid:hover .disc--playable::before{ animation-play-state:paused; }
-  .disc::after{ content:''; width:16%; aspect-ratio:1/1; background:var(--night); border-radius:50%; border:1px solid var(--line); }
+  .disc::after{
+    content:''; width:16%; aspect-ratio:1/1; background:var(--night); border-radius:50%; border:1px solid var(--line);
+    position:relative; z-index:2;
+  }
+  .disc-art{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+  .disc--jacket{ background:var(--night); }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   .disc-cap{ text-align:center; margin-top:18px; }
   .disc-cap .t{ font-family:'Shippori Mincho', serif; font-size:15px; }
@@ -385,7 +390,59 @@
   <h2>音源</h2>
   <div class="disco-grid">
     <div>
-      <div class="disc disc--playable" id="demo-disc" onclick="toggleDemo(this)"></div>
+      <div class="disc disc--playable disc--jacket" id="demo-disc" onclick="toggleDemo(this)">
+        <svg class="disc-art" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="demoSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#171531"/>
+              <stop offset="100%" stop-color="#0b0a14"/>
+            </linearGradient>
+            <radialGradient id="demoGlow" cx="68%" cy="26%" r="60%">
+              <stop offset="0%" stop-color="#ff2e87" stop-opacity="0.55"/>
+              <stop offset="45%" stop-color="#5b4b8a" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#11101c" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="demoGrain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="n"/>
+              <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/>
+            </filter>
+          </defs>
+          <rect width="400" height="400" fill="url(#demoSky)"/>
+          <rect width="400" height="400" fill="url(#demoGlow)"/>
+          <circle cx="280" cy="105" r="44" fill="#ffb04a" opacity="0.85"/>
+          <circle cx="294" cy="93" r="38" fill="#171531" opacity="0.55"/>
+          <g fill="#0c0a16" stroke="#000" stroke-width="1">
+            <rect x="0" y="300" width="46" height="100"/>
+            <rect x="40" y="260" width="38" height="140"/>
+            <rect x="72" y="290" width="30" height="110"/>
+            <rect x="98" y="252" width="42" height="148"/>
+            <rect x="258" y="270" width="36" height="130"/>
+            <rect x="288" y="238" width="46" height="162"/>
+            <rect x="328" y="280" width="34" height="120"/>
+            <rect x="358" y="255" width="42" height="145"/>
+          </g>
+          <g fill="#ffb04a" opacity="0.8">
+            <rect x="10" y="320" width="4" height="6"/>
+            <rect x="20" y="335" width="4" height="6"/>
+            <rect x="50" y="290" width="4" height="6"/>
+            <rect x="62" y="310" width="4" height="6"/>
+            <rect x="108" y="275" width="4" height="6"/>
+            <rect x="120" y="300" width="4" height="6"/>
+          </g>
+          <g fill="#ff2e87" opacity="0.75">
+            <rect x="300" y="260" width="4" height="6"/>
+            <rect x="312" y="290" width="4" height="6"/>
+            <rect x="372" y="285" width="4" height="6"/>
+          </g>
+          <text x="200" y="26" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#f4ecdf" letter-spacing="4" opacity="0.9">1st DEMO</text>
+          <g transform="translate(200,138)" fill="#f4ecdf" opacity="0.9">
+            <circle cx="0" cy="0" r="8"/>
+            <path d="M -3.5 7 L 3.5 7 L 6 21 L -6 21 Z"/>
+          </g>
+          <text x="200" y="248" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="11" letter-spacing="4" fill="#ff2e87">ANOKO HIMITSU SPOT</text>
+          <rect width="400" height="400" filter="url(#demoGrain)" opacity="0.5"/>
+        </svg>
+      </div>
       <div class="disc-cap"><div class="t">1st Demo</div><div class="y" id="demo-status">クリックで再生</div></div>
       <audio id="demo-audio" src="assets/audio/1st-demo.mp4" preload="none"></audio>
     </div>
