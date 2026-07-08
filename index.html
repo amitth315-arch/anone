@@ -390,7 +390,7 @@
   <h2>音源</h2>
   <div class="disco-grid">
     <div>
-      <div class="disc disc--playable disc--jacket" id="demo-disc" onclick="toggleDemo(this)">
+      <div class="disc disc--playable disc--jacket" id="demo-disc" data-audio="demo-audio" data-status="demo-status">
         <svg class="disc-art" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="demoSky" x1="0" y1="0" x2="0" y2="1">
@@ -434,7 +434,7 @@
             <rect x="312" y="290" width="4" height="6"/>
             <rect x="372" y="285" width="4" height="6"/>
           </g>
-          <text x="200" y="26" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#f4ecdf" letter-spacing="4" opacity="0.9">1st DEMO</text>
+          <text x="200" y="26" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#f4ecdf" letter-spacing="2" opacity="0.9">理性のブレーキを外して</text>
           <g transform="translate(200,138)" fill="#f4ecdf" opacity="0.9">
             <circle cx="0" cy="0" r="8"/>
             <path d="M -3.5 7 L 3.5 7 L 6 21 L -6 21 Z"/>
@@ -443,12 +443,13 @@
           <rect width="400" height="400" filter="url(#demoGrain)" opacity="0.5"/>
         </svg>
       </div>
-      <div class="disc-cap"><div class="t">1st Demo</div><div class="y" id="demo-status">クリックで再生</div></div>
+      <div class="disc-cap"><div class="t">理性のブレーキを外して</div><div class="y" id="demo-status">クリックで再生</div></div>
       <audio id="demo-audio" src="assets/audio/1st-demo.mp4" preload="none"></audio>
     </div>
     <div>
-      <div class="disc"></div>
-      <div class="disc-cap"><div class="t">未定の曲</div><div class="y">2026</div></div>
+      <div class="disc disc--playable" id="track2-disc" data-audio="track2-audio" data-status="track2-status"></div>
+      <div class="disc-cap"><div class="t">二時十五分の微熱</div><div class="y" id="track2-status">クリックで再生</div></div>
+      <audio id="track2-audio" src="assets/audio/2nd-2ji15fun-no-binetsu.mp4" preload="none"></audio>
     </div>
     <div>
       <div class="disc"></div>
@@ -608,34 +609,33 @@
 </footer>
 
 <script>
-  // 1st Demo クリック再生：実音源(mp4)を再生
-  const demoAudio = document.getElementById('demo-audio');
-  const demoDisc = document.getElementById('demo-disc');
-  const demoStatus = document.getElementById('demo-status');
+  // レコード盤クリック再生：実音源(mp4)を再生。data-audio/data-statusで紐付け
+  function setupDisc(disc){
+    const audio = document.getElementById(disc.dataset.audio);
+    const status = document.getElementById(disc.dataset.status);
 
-  function toggleDemo(el){
-    if(demoAudio.paused){
-      demoAudio.play();
-    } else {
-      demoAudio.pause();
-    }
+    disc.addEventListener('click', () => {
+      if(audio.paused){ audio.play(); } else { audio.pause(); }
+    });
+
+    audio.addEventListener('play', () => {
+      disc.classList.add('playing');
+      status.textContent = '♪ Now Playing';
+      status.classList.add('now-playing');
+    });
+
+    audio.addEventListener('pause', () => {
+      disc.classList.remove('playing');
+      status.textContent = 'クリックで再生';
+      status.classList.remove('now-playing');
+    });
+
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+    });
   }
 
-  demoAudio.addEventListener('play', () => {
-    demoDisc.classList.add('playing');
-    demoStatus.textContent = '♪ Now Playing';
-    demoStatus.classList.add('now-playing');
-  });
-
-  demoAudio.addEventListener('pause', () => {
-    demoDisc.classList.remove('playing');
-    demoStatus.textContent = 'クリックで再生';
-    demoStatus.classList.remove('now-playing');
-  });
-
-  demoAudio.addEventListener('ended', () => {
-    demoAudio.currentTime = 0;
-  });
+  document.querySelectorAll('.disc--playable[data-audio]').forEach(setupDisc);
 </script>
 
 </body>
