@@ -447,7 +447,54 @@
       <audio id="demo-audio" src="assets/audio/1st-demo.mp4" preload="none"></audio>
     </div>
     <div>
-      <div class="disc disc--playable" id="track2-disc" data-audio="track2-audio" data-status="track2-status"></div>
+      <div class="disc disc--playable disc--jacket" id="track2-disc" data-audio="track2-audio" data-status="track2-status">
+        <svg class="disc-art" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="t2Sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#241428"/>
+              <stop offset="100%" stop-color="#0e0a12"/>
+            </linearGradient>
+            <radialGradient id="t2Glow" cx="50%" cy="58%" r="55%">
+              <stop offset="0%" stop-color="#ff2e87" stop-opacity="0.5"/>
+              <stop offset="45%" stop-color="#ffb04a" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#11101c" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="t2Blur"><feGaussianBlur stdDeviation="3"/></filter>
+            <filter id="t2Grain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="n"/>
+              <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/>
+            </filter>
+          </defs>
+          <rect width="400" height="400" fill="url(#t2Sky)"/>
+          <rect width="400" height="400" fill="url(#t2Glow)"/>
+          <!-- feverish ghost clock (blurred double-exposure) -->
+          <g transform="translate(206,196)" opacity="0.35" filter="url(#t2Blur)">
+            <circle r="72" fill="none" stroke="#ff2e87" stroke-width="2"/>
+            <line x1="0" y1="0" x2="0" y2="-40" stroke="#f4ecdf" stroke-width="4" stroke-linecap="round" transform="rotate(67.5)"/>
+            <line x1="0" y1="0" x2="0" y2="-56" stroke="#f4ecdf" stroke-width="3" stroke-linecap="round" transform="rotate(90)"/>
+          </g>
+          <!-- clock face at 2:15 -->
+          <g transform="translate(200,190)">
+            <circle r="72" fill="none" stroke="#f4ecdf" stroke-width="2" opacity="0.85"/>
+            <g stroke="#f4ecdf" stroke-width="2" opacity="0.6">
+              <line x1="0" y1="-64" x2="0" y2="-72"/>
+              <line x1="0" y1="64" x2="0" y2="72" transform="rotate(180)"/>
+              <line x1="0" y1="-64" x2="0" y2="-72" transform="rotate(90)"/>
+              <line x1="0" y1="-64" x2="0" y2="-72" transform="rotate(270)"/>
+            </g>
+            <line x1="0" y1="0" x2="0" y2="-40" stroke="#f4ecdf" stroke-width="4" stroke-linecap="round" transform="rotate(67.5)"/>
+            <line x1="0" y1="0" x2="0" y2="-56" stroke="#ff2e87" stroke-width="3" stroke-linecap="round" transform="rotate(90)"/>
+            <circle r="4" fill="#ff2e87"/>
+          </g>
+          <text x="200" y="26" text-anchor="middle" font-family="Anton, sans-serif" font-size="16" fill="#f4ecdf" letter-spacing="2" opacity="0.9">二時十五分の微熱</text>
+          <g transform="translate(200,290)" fill="#f4ecdf" opacity="0.9">
+            <circle cx="0" cy="0" r="8"/>
+            <path d="M -3.5 7 L 3.5 7 L 6 21 L -6 21 Z"/>
+          </g>
+          <text x="200" y="330" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="11" letter-spacing="4" fill="#ff2e87">ANOKO HIMITSU SPOT</text>
+          <rect width="400" height="400" filter="url(#t2Grain)" opacity="0.5"/>
+        </svg>
+      </div>
       <div class="disc-cap"><div class="t">二時十五分の微熱</div><div class="y" id="track2-status">クリックで再生</div></div>
       <audio id="track2-audio" src="assets/audio/2nd-2ji15fun-no-binetsu.mp4" preload="none"></audio>
     </div>
