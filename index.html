@@ -193,6 +193,21 @@
   .live-item .date{ color:var(--amber); font-family:'Shippori Mincho', serif; font-size:16px; }
   .live-item .place{ opacity:.85; }
   .live-item .place small{ display:block; opacity:.55; font-size:11px; margin-top:4px; letter-spacing:.05em; }
+  .setlist{ margin-top:16px; }
+  .setlist summary{
+    cursor:pointer; list-style:none; display:inline-block;
+    font-family:'Archivo', sans-serif; font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+    color:var(--amber);
+  }
+  .setlist summary::-webkit-details-marker{ display:none; }
+  .setlist summary::before{ content:'+ '; }
+  .setlist[open] summary::before{ content:'– '; }
+  .setlist ol{ list-style:none; margin-top:10px; counter-reset:song; }
+  .setlist li{ counter-increment:song; font-size:13px; line-height:2.1; opacity:.85; }
+  .setlist li::before{
+    content:counter(song, decimal-leading-zero); margin-right:14px;
+    font-family:'Archivo', sans-serif; font-size:10px; letter-spacing:.1em; color:var(--neon);
+  }
   .tag{
     font-size:10px; letter-spacing:.15em; padding:6px 14px; border:1px solid var(--neon); color:var(--neon); border-radius:99px;
     white-space:nowrap;
@@ -372,6 +387,23 @@
   <span class="label">LIVE</span>
   <h2>SCHEDULE</h2>
   <ul class="live-list">
+    <li class="live-item">
+      <div class="date">09.23</div>
+      <div class="place">燦々日和第79話「明日から本気出す編」<small>新宿sunface</small>
+        <details class="setlist" open>
+          <summary>Set List</summary>
+          <ol>
+            <li>あの娘の秘密</li>
+            <li>激れ青春、闇に火を灯せ</li>
+            <li>どれだけ泣けば</li>
+            <li>絶望の朝</li>
+            <li>悶ダフルライフ</li>
+            <li>ルリララ</li>
+          </ol>
+        </details>
+      </div>
+      <span class="tag">NEXT LIVE</span>
+    </li>
     <li class="live-item">
       <div class="date">07.19</div>
       <div class="place">未定の小箱 ワンマンライブ<small>OPEN 18:00 / START 19:00</small></div>
