@@ -256,35 +256,46 @@
   .disc--playable.playing{ animation-duration:2.6s; box-shadow:0 0 0 3px var(--neon-soft); }
   .disc-cap .y.now-playing{ color:var(--neon); }
 
-  /* ---------- GOODS : white product-card style ---------- */
+  /* ---------- GOODS : studio product-card style ---------- */
   .goods{ border-top:1px solid var(--line); }
-  .goods-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; }
+  .goods-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; }
   .goods-item{
-    background:var(--cream); border-radius:4px; overflow:hidden;
-    display:flex; flex-direction:column; transition:transform .35s ease;
+    background:#0c0a14; border:1px solid var(--line); border-radius:2px; overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
-  .goods-item:hover{ transform:translateY(-4px); }
-  .goods-visual{
-    width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
-    background:var(--cream); padding:18px; box-sizing:border-box;
+  .goods-item:hover{
+    transform:translateY(-4px); border-color:rgba(255,46,135,.45);
+    box-shadow:0 20px 44px rgba(0,0,0,.5), 0 0 26px var(--neon-soft);
   }
-  .goods-visual svg{ width:100%; height:100%; }
-  .goods-caption{
-    background:#0c0a14; padding:20px 18px 26px; text-align:center;
+  .goods-visual{ position:relative; width:100%; aspect-ratio:1/1; overflow:hidden; background:#d6d1c6; }
+  .goods-visual svg{ display:block; width:100%; height:100%; transition:transform .7s ease; }
+  .goods-item:hover .goods-visual svg{ transform:scale(1.04); }
+  .goods-no{
+    position:absolute; top:14px; left:16px; z-index:1;
+    font-family:'Archivo', sans-serif; font-size:10px; font-weight:600; letter-spacing:.3em; color:#2b2838; opacity:.7;
   }
-  .g-tag{ font-size:10px; letter-spacing:.2em; color:var(--neon); margin-bottom:8px; text-transform:uppercase; }
-  .g-name{
-    font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--cream); margin-bottom:10px; line-height:1.6;
+  .goods-caption{ display:flex; flex-direction:column; padding:22px 22px 24px; text-align:left; flex:1; }
+  .g-tag{
+    font-family:'Archivo', sans-serif; font-size:10px; letter-spacing:.22em; color:var(--neon);
+    margin-bottom:10px; text-transform:uppercase;
   }
-  .g-price{ font-family:'Archivo', sans-serif; font-size:14px; letter-spacing:.04em; color:var(--cream); opacity:.85; margin-bottom:14px; }
-  .g-price .note{ font-size:10.5px; opacity:.6; margin-left:6px; }
+  .g-name{ font-weight:500; font-size:15px; letter-spacing:.08em; color:var(--cream); margin-bottom:14px; line-height:1.6; }
+  .g-price{ display:flex; align-items:baseline; gap:10px; font-family:'Archivo', sans-serif; margin-bottom:16px; }
+  .g-price .yen{ font-size:21px; font-weight:600; letter-spacing:.03em; color:var(--cream); }
+  .g-price .note{ font-size:10.5px; letter-spacing:.12em; opacity:.55; }
+  .g-sizes{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px; }
+  .g-sizes span{
+    font-family:'Archivo', sans-serif; font-size:10.5px; letter-spacing:.14em; text-align:center;
+    min-width:36px; padding:6px 10px; border:1px solid var(--line); color:var(--cream); opacity:.8;
+  }
   .g-btn{
-    font-family:'Archivo', sans-serif; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--cream); text-decoration:none; opacity:.55; border-bottom:1px solid transparent;
-    transition:.3s; padding-bottom:2px;
+    margin-top:auto; display:block; text-align:center; text-decoration:none;
+    font-size:12px; letter-spacing:.22em; color:var(--cream);
+    padding:14px 0; border:1px solid rgba(244,236,223,.35); transition:.3s;
   }
-  .g-btn:hover{ opacity:1; color:var(--neon); border-color:var(--neon); }
+  .g-btn::after{ content:'\2192'; margin-left:12px; }
+  .g-btn:hover{ background:var(--neon); border-color:var(--neon); color:var(--night); }
   @media(max-width:900px){ .goods-grid{ grid-template-columns:1fr 1fr; } }
   @media(max-width:560px){ .goods-grid{ grid-template-columns:1fr; } }
 
@@ -544,125 +555,332 @@
 
     <div class="goods-item">
       <div class="goods-visual">
-        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <span class="goods-no">01</span>
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ANOKO HIMITSU SPOT ロゴキャップ">
           <defs>
-            <linearGradient id="capCrown" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#2a2440"/>
-              <stop offset="45%" stop-color="#181530"/>
-              <stop offset="100%" stop-color="#0c0a18"/>
-            </linearGradient>
-            <linearGradient id="capBrim" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1c1932"/>
-              <stop offset="100%" stop-color="#08070f"/>
-            </linearGradient>
-            <radialGradient id="capSheen" cx="35%" cy="25%" r="70%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
-              <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
-            </radialGradient>
+          <linearGradient id="capBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8e4db"/>
+            <stop offset="100%" stop-color="#c6c1b4"/>
+          </linearGradient>
+          <radialGradient id="capSpot" cx="50%" cy="40%" r="62%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".62"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="capVig" cx="50%" cy="50%" r="75%">
+            <stop offset="55%" stop-color="#2a2418" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#2a2418" stop-opacity=".22"/>
+          </radialGradient>
+          <linearGradient id="capCrown" gradientUnits="userSpaceOnUse" x1="58" y1="0" x2="342" y2="0">
+            <stop offset="0%" stop-color="#07060f"/>
+            <stop offset="22%" stop-color="#15122b"/>
+            <stop offset="45%" stop-color="#242047"/>
+            <stop offset="72%" stop-color="#17142f"/>
+            <stop offset="100%" stop-color="#060510"/>
+          </linearGradient>
+          <radialGradient id="capSheen" cx="40%" cy="30%" r="55%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="capBase" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="62%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="capBrimG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2b2650"/>
+            <stop offset="45%" stop-color="#1a1735"/>
+            <stop offset="100%" stop-color="#0a0917"/>
+          </linearGradient>
+          <linearGradient id="capBrimSide" gradientUnits="userSpaceOnUse" x1="38" y1="0" x2="362" y2="0">
+            <stop offset="0%" stop-color="#000" stop-opacity=".55"/>
+            <stop offset="30%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity=".55"/>
+          </linearGradient>
+          <pattern id="capThread" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+            <rect width="3" height="1.3" fill="#000" opacity=".3"/>
+          </pattern>
+          <clipPath id="capClip"><path d="M70 262 C58 165 118 100 200 100 C282 100 342 165 330 262 Q200 282 70 262 Z"/></clipPath>
+          <filter id="capDrop" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="14" stdDeviation="11" flood-color="#2a2418" flood-opacity=".42"/>
+          </filter>
+          <filter id="capB3" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+          <filter id="capB6" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="capEmb" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="1.4" stdDeviation=".7" flood-color="#000" flood-opacity=".7"/>
+          </filter>
+          <filter id="capFabric" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.95 0.8" numOctaves="2" seed="5" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.7 0 0 0 .85" result="dk"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.7 0 0 0 -.85" result="lt"/>
+            <feMerge><feMergeNode in="dk"/><feMergeNode in="lt"/></feMerge>
+          </filter>
           </defs>
-          <!-- cap crown -->
-          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120 L200 128 L40 128 Z" fill="url(#capCrown)" stroke="#000" stroke-width="1"/>
-          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120 L200 128 L40 128 Z" fill="url(#capSheen)"/>
-          <!-- panel seams -->
-          <path d="M120 41 L120 128" stroke="#000" stroke-width="1.5" opacity="0.55"/>
-          <path d="M78 48 C70 70 66 100 68 128" stroke="#000" stroke-width="1.5" fill="none" opacity="0.4"/>
-          <path d="M162 48 C170 70 174 100 172 128" stroke="#000" stroke-width="1.5" fill="none" opacity="0.4"/>
-          <!-- stitching detail -->
-          <path d="M40 120 C40 70 75 40 120 40 C165 40 200 70 200 120" fill="none" stroke="#f4ecdf" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.25"/>
-          <!-- brim -->
-          <path d="M30 128 C30 120 35 116 45 116 L195 116 C205 116 210 120 210 128 C210 142 195 151 120 151 C45 151 30 142 30 128 Z" fill="url(#capBrim)" stroke="#000" stroke-width="1"/>
-          <ellipse cx="120" cy="129" rx="90" ry="9" fill="#ffffff" opacity="0.04"/>
-          <!-- button -->
-          <circle cx="120" cy="42" r="4.5" fill="#15132a" stroke="#3a3454" stroke-width="1"/>
-          <!-- logo patch : embroidered stacked type -->
-          <rect x="84" y="74" width="72" height="40" rx="3" fill="#0c0a16" stroke="#3a3454" stroke-width="1.2"/>
-          <text x="120" y="88" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="11" letter-spacing="0.5">ANOKO</text>
-          <text x="120" y="99" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="11" letter-spacing="0.5">HIMITSU</text>
-          <text x="120" y="110" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="12" letter-spacing="0.5">SPOT</text>
+          <rect width="400" height="400" fill="url(#capBg)"/>
+          <rect width="400" height="400" fill="url(#capSpot)"/>
+          <rect width="400" height="400" fill="url(#capVig)"/>
+          <g filter="url(#capDrop)">
+            <!-- visor: thickness, top face, stitching -->
+            <path d="M56 268 Q200 278 344 268 C362 310 300 344 200 346 C100 344 38 310 56 268 Z" fill="#05040b"/>
+            <path d="M56 262 Q200 272 344 262 C362 304 300 338 200 340 C100 338 38 304 56 262 Z" fill="url(#capBrimG)"/>
+            <path d="M56 262 Q200 272 344 262 C362 304 300 338 200 340 C100 338 38 304 56 262 Z" fill="url(#capBrimSide)"/>
+            <path d="M56 262 Q200 272 344 262" fill="none" stroke="#5a5490" stroke-width="1" opacity=".35"/>
+            <g fill="none" stroke="#a9a3d0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".3">
+              <path d="M66 282 C76 312 132 328 200 329 C268 328 324 312 334 282"/>
+              <path d="M79 279 C90 302 140 316 200 317 C260 316 310 302 321 279"/>
+              <path d="M92 277 C104 293 146 304 200 305 C254 304 296 293 308 277"/>
+            </g>
+            <!-- crown -->
+            <path d="M70 262 C58 165 118 100 200 100 C282 100 342 165 330 262 Q200 282 70 262 Z" fill="url(#capCrown)"/>
+          </g>
+          <g clip-path="url(#capClip)">
+            <rect width="400" height="400" fill="url(#capSheen)"/>
+            <rect width="400" height="400" fill="url(#capBase)"/>
+            <rect width="400" height="400" filter="url(#capFabric)" opacity=".35"/>
+          </g>
+          <!-- panel seams, eyelets, button -->
+          <g fill="none" stroke-linecap="round">
+            <path d="M192 102 C152 120 124 180 118 268" stroke="#000" stroke-width="1.8" opacity=".55"/>
+            <path d="M208 102 C248 120 276 180 282 268" stroke="#000" stroke-width="1.8" opacity=".55"/>
+            <path d="M194.5 103 C155 122 127 182 121 268" stroke="#a9a3d0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".3"/>
+            <path d="M205.5 103 C245 122 273 182 279 268" stroke="#a9a3d0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".3"/>
+            <path d="M70 262 Q200 282 330 262" stroke="#02010a" stroke-width="3" opacity=".8"/>
+            <path d="M74 258 Q200 277 326 258" stroke="#a9a3d0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".28"/>
+          </g>
+          <g>
+            <ellipse cx="146" cy="160" rx="5.6" ry="4.6" fill="#0a0917" stroke="#4a4478" stroke-width="1.6"/>
+            <ellipse cx="254" cy="160" rx="5.6" ry="4.6" fill="#0a0917" stroke="#4a4478" stroke-width="1.6"/>
+            <circle cx="200" cy="101" r="7.5" fill="#15122b" stroke="#000" stroke-width="1"/>
+            <circle cx="198" cy="99" r="3.2" fill="#ffffff" opacity=".14"/>
+          </g>
+          <!-- embroidered logo -->
+          <g filter="url(#capEmb)">
+            <g font-family="Anton, 'Archivo', sans-serif" text-anchor="middle" letter-spacing="1" transform="translate(0,0)">
+              <text x="200" y="176" font-size="25" fill="#f4ecdf">ANOKO</text>
+              <text x="200" y="204" font-size="25" fill="#f4ecdf">HIMITSU</text>
+              <text x="200" y="238" font-size="33" fill="#ff2e87">SPOT</text>
+            </g>
+            <g font-family="Anton, 'Archivo', sans-serif" text-anchor="middle" letter-spacing="1" transform="translate(0,0)">
+              <text x="200" y="176" font-size="25" fill="url(#capThread)">ANOKO</text>
+              <text x="200" y="204" font-size="25" fill="url(#capThread)">HIMITSU</text>
+              <text x="200" y="238" font-size="33" fill="url(#capThread)">SPOT</text>
+            </g>
+          </g>
         </svg>
       </div>
       <div class="goods-caption">
         <div class="g-tag">Headwear</div>
         <div class="g-name">ロゴキャップ</div>
-        <div class="g-price">¥4,500 <span class="note">税込 / フリーサイズ</span></div>
+        <div class="g-price"><span class="yen">¥4,500</span><span class="note">税込</span></div>
+        <div class="g-sizes"><span>FREE SIZE</span></div>
         <a href="#contact" class="g-btn">問い合わせる</a>
       </div>
     </div>
 
     <div class="goods-item">
       <div class="goods-visual">
-        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <span class="goods-no">02</span>
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ブラックのバンドTシャツ">
           <defs>
-            <linearGradient id="teeBlackBody" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#2c2a36"/>
-              <stop offset="50%" stop-color="#16151c"/>
-              <stop offset="100%" stop-color="#0a090d"/>
-            </linearGradient>
-            <radialGradient id="teeBlackSheen" cx="38%" cy="20%" r="75%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/>
-              <stop offset="55%" stop-color="#ffffff" stop-opacity="0"/>
-            </radialGradient>
+          <linearGradient id="tbBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8e4db"/>
+            <stop offset="100%" stop-color="#c6c1b4"/>
+          </linearGradient>
+          <radialGradient id="tbSpot" cx="50%" cy="40%" r="62%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".62"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="tbVig" cx="50%" cy="50%" r="75%">
+            <stop offset="55%" stop-color="#2a2418" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#2a2418" stop-opacity=".22"/>
+          </radialGradient>
+          <linearGradient id="tbBody" gradientUnits="userSpaceOnUse" x1="36" y1="0" x2="364" y2="0">
+            <stop offset="0%" stop-color="#08080b"/>
+            <stop offset="20%" stop-color="#17161d"/>
+            <stop offset="45%" stop-color="#282732"/>
+            <stop offset="70%" stop-color="#191820"/>
+            <stop offset="100%" stop-color="#07070a"/>
+          </linearGradient>
+          <linearGradient id="tbFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity=".40"/>
+          </linearGradient>
+          <clipPath id="tbClip"><path d="M164 72 L92 98 L36 172 L80 206 L112 182 L116 344 Q200 356 284 344 L288 182 L320 206 L364 172 L308 98 L236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z"/></clipPath>
+          <filter id="tbDrop" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="14" stdDeviation="11" flood-color="#2a2418" flood-opacity=".4"/>
+          </filter>
+          <filter id="tbB4" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="tbB7" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="tbB12" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="12"/></filter>
+          <filter id="tbFabric" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="1.1 0.9" numOctaves="2" seed="7" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.7 0 0 0 .85" result="dk"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.7 0 0 0 -.85" result="lt"/>
+            <feMerge><feMergeNode in="dk"/><feMergeNode in="lt"/></feMerge>
+          </filter>
+          <filter id="tbDistress" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  10 0 0 0 -1.9" result="m"/>
+            <feComposite in="SourceGraphic" in2="m" operator="in"/>
+          </filter>
           </defs>
-          <!-- tee body, flat-lay style -->
-          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
-                fill="url(#teeBlackBody)" stroke="#000" stroke-width="1.4"/>
-          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
-                fill="url(#teeBlackSheen)"/>
-          <!-- fold shadows -->
-          <path d="M96 90 C100 120 100 150 94 172" stroke="#000" stroke-width="6" opacity="0.18" fill="none" stroke-linecap="round"/>
-          <path d="M144 90 C140 120 140 150 146 172" stroke="#000" stroke-width="6" opacity="0.18" fill="none" stroke-linecap="round"/>
-          <!-- collar rib -->
-          <path d="M103 51 C108 64 132 64 137 51" stroke="#000" stroke-width="3.5" fill="none" opacity="0.5"/>
-          <path d="M103 51 C108 64 132 64 137 51" stroke="#3a3838" stroke-width="1.4" fill="none"/>
-          <!-- chest print : stacked poster type -->
-          <text x="120" y="106" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">ANOKO</text>
-          <text x="120" y="123" text-anchor="middle" fill="#f4ecdf" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">HIMITSU</text>
-          <text x="120" y="144" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="19" letter-spacing="0.5">SPOT</text>
+          <rect width="400" height="400" fill="url(#tbBg)"/>
+          <rect width="400" height="400" fill="url(#tbSpot)"/>
+          <rect width="400" height="400" fill="url(#tbVig)"/>
+          <!-- inside of the back neck + woven label -->
+          <path d="M164 72 C170 60 230 60 236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z" fill="#050507"/>
+          <rect x="187" y="68" width="26" height="11" rx="1.2" fill="#d9d3c4" opacity=".85"/>
+          <path d="M192 72.5 H208 M192 75.5 H203" stroke="#000" stroke-width="1" opacity=".35"/>
+          <!-- garment -->
+          <g filter="url(#tbDrop)"><path d="M164 72 L92 98 L36 172 L80 206 L112 182 L116 344 Q200 356 284 344 L288 182 L320 206 L364 172 L308 98 L236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z" fill="url(#tbBody)"/></g>
+          <g clip-path="url(#tbClip)">
+            <rect width="400" height="400" fill="url(#tbFade)"/>
+            <path d="M92 98 L36 172 L80 206 L112 182 C108 158 102 128 92 98 Z" fill="#000" opacity=".24"/>
+            <path d="M308 98 L364 172 L320 206 L288 182 C292 158 298 128 308 98 Z" fill="#000" opacity=".24"/>
+            <g fill="none" stroke-linecap="round">
+              <path d="M188 130 C182 200 192 280 186 346" stroke="#fff" stroke-width="32" opacity=".07" filter="url(#tbB12)"/>
+              <path d="M146 196 C138 250 150 300 142 346" stroke="#000" stroke-width="16" opacity=".38" filter="url(#tbB7)"/>
+              <path d="M262 190 C270 248 258 300 266 346" stroke="#000" stroke-width="16" opacity=".38" filter="url(#tbB7)"/>
+              <path d="M116 188 C146 192 168 208 176 238" stroke="#000" stroke-width="10" opacity=".38" filter="url(#tbB4)"/>
+              <path d="M284 188 C254 192 232 208 224 238" stroke="#000" stroke-width="10" opacity=".38" filter="url(#tbB4)"/>
+              <path d="M166 82 C170 106 184 124 200 124 C216 124 230 106 234 82" stroke="#000" stroke-width="12" opacity=".38" filter="url(#tbB7)"/>
+            </g>
+            <rect width="400" height="400" filter="url(#tbFabric)" opacity=".30"/>
+          </g>
+          <!-- seams & stitching -->
+          <g fill="none" stroke-linecap="round">
+            <path d="M92 98 C104 130 108 160 112 182" stroke="#000" stroke-width="1.4" opacity=".4"/>
+            <path d="M308 98 C296 130 292 160 288 182" stroke="#000" stroke-width="1.4" opacity=".4"/>
+            <path d="M94 101 C106 132 110 162 114 184" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M306 101 C294 132 290 162 286 184" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M41 166 L85 200" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M359 166 L315 200" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M119 333 Q200 345 281 333" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M119 337 Q200 349 281 337" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <!-- ribbed collar -->
+            <path d="M165 76 C169 98 184 112 200 112 C216 112 231 98 235 76" stroke="#15141c" stroke-width="9"/>
+            <path d="M165 76 C169 98 184 112 200 112 C216 112 231 98 235 76" stroke="#000" stroke-width="8.4" stroke-dasharray="1 2.1" opacity=".45"/>
+            <path d="M167 84 C171 104 186 118 200 118 C214 118 229 104 233 84" stroke="#9b97b0" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".32"/>
+            <path d="M164 72 C170 60 230 60 236 72" stroke="#15141c" stroke-width="6"/>
+          </g>
+          <!-- chest print -->
+          <g filter="url(#tbDistress)" font-family="Anton, 'Archivo', sans-serif" text-anchor="middle" letter-spacing="1">
+            <text x="200" y="208" font-size="40" fill="#f4ecdf">ANOKO</text>
+            <text x="200" y="248" font-size="40" fill="#f4ecdf">HIMITSU</text>
+            <text x="200" y="298" font-size="52" fill="#ff2e87">SPOT</text>
+          </g>
         </svg>
       </div>
       <div class="goods-caption">
         <div class="g-tag">Apparel — Black</div>
         <div class="g-name">バンドTシャツ（ブラック）</div>
-        <div class="g-price">¥3,800 <span class="note">税込 / S・M・L</span></div>
+        <div class="g-price"><span class="yen">¥3,800</span><span class="note">税込</span></div>
+        <div class="g-sizes"><span>S</span><span>M</span><span>L</span></div>
         <a href="#contact" class="g-btn">問い合わせる</a>
       </div>
     </div>
 
     <div class="goods-item">
       <div class="goods-visual">
-        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <span class="goods-no">03</span>
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ホワイトのバンドTシャツ">
           <defs>
-            <linearGradient id="teeWhiteBody" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#fdfbf6"/>
-              <stop offset="50%" stop-color="#e9e4d8"/>
-              <stop offset="100%" stop-color="#d8d2c2"/>
-            </linearGradient>
-            <radialGradient id="teeWhiteSheen" cx="38%" cy="20%" r="75%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
-              <stop offset="55%" stop-color="#ffffff" stop-opacity="0"/>
-            </radialGradient>
+          <linearGradient id="twBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8e4db"/>
+            <stop offset="100%" stop-color="#c6c1b4"/>
+          </linearGradient>
+          <radialGradient id="twSpot" cx="50%" cy="40%" r="62%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".62"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="twVig" cx="50%" cy="50%" r="75%">
+            <stop offset="55%" stop-color="#2a2418" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#2a2418" stop-opacity=".22"/>
+          </radialGradient>
+          <linearGradient id="twBody" gradientUnits="userSpaceOnUse" x1="36" y1="0" x2="364" y2="0">
+            <stop offset="0%" stop-color="#c8c2b3"/>
+            <stop offset="20%" stop-color="#e9e5da"/>
+            <stop offset="45%" stop-color="#fbf9f3"/>
+            <stop offset="70%" stop-color="#ece8dd"/>
+            <stop offset="100%" stop-color="#c4beae"/>
+          </linearGradient>
+          <linearGradient id="twFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity=".14"/>
+          </linearGradient>
+          <clipPath id="twClip"><path d="M164 72 L92 98 L36 172 L80 206 L112 182 L116 344 Q200 356 284 344 L288 182 L320 206 L364 172 L308 98 L236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z"/></clipPath>
+          <filter id="twDrop" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="14" stdDeviation="11" flood-color="#2a2418" flood-opacity=".4"/>
+          </filter>
+          <filter id="twB4" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="twB7" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="twB12" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="12"/></filter>
+          <filter id="twFabric" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="1.1 0.9" numOctaves="2" seed="11" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.7 0 0 0 .85" result="dk"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.7 0 0 0 -.85" result="lt"/>
+            <feMerge><feMergeNode in="dk"/><feMergeNode in="lt"/></feMerge>
+          </filter>
+          <filter id="twDistress" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  10 0 0 0 -1.9" result="m"/>
+            <feComposite in="SourceGraphic" in2="m" operator="in"/>
+          </filter>
           </defs>
-          <!-- tee body, flat-lay style -->
-          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
-                fill="url(#teeWhiteBody)" stroke="#8c8369" stroke-width="1.6"/>
-          <path d="M85 50 L60 65 L48 92 L70 102 L78 86 L78 172 L162 172 L162 86 L170 102 L192 92 L180 65 L155 50 C150 64 130 70 120 70 C110 70 90 64 85 50 Z"
-                fill="url(#teeWhiteSheen)"/>
-          <!-- fold shadows -->
-          <path d="M96 90 C100 120 100 150 94 172" stroke="#000" stroke-width="6" opacity="0.07" fill="none" stroke-linecap="round"/>
-          <path d="M144 90 C140 120 140 150 146 172" stroke="#000" stroke-width="6" opacity="0.07" fill="none" stroke-linecap="round"/>
-          <!-- collar rib -->
-          <path d="M103 51 C108 64 132 64 137 51" stroke="#b8af9b" stroke-width="3.5" fill="none" opacity="0.7"/>
-          <path d="M103 51 C108 64 132 64 137 51" stroke="#cfc7b3" stroke-width="1.4" fill="none"/>
-          <!-- chest print : stacked poster type -->
-          <text x="120" y="106" text-anchor="middle" fill="#15131f" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">ANOKO</text>
-          <text x="120" y="123" text-anchor="middle" fill="#15131f" font-family="Anton, sans-serif" font-size="16" letter-spacing="0.5">HIMITSU</text>
-          <text x="120" y="144" text-anchor="middle" fill="#ff2e87" font-family="Anton, sans-serif" font-size="19" letter-spacing="0.5">SPOT</text>
+          <rect width="400" height="400" fill="url(#twBg)"/>
+          <rect width="400" height="400" fill="url(#twSpot)"/>
+          <rect width="400" height="400" fill="url(#twVig)"/>
+          <!-- inside of the back neck + woven label -->
+          <path d="M164 72 C170 60 230 60 236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z" fill="#b3ac9a"/>
+          <rect x="187" y="68" width="26" height="11" rx="1.2" fill="#8f8672" opacity=".85"/>
+          <path d="M192 72.5 H208 M192 75.5 H203" stroke="#000" stroke-width="1" opacity=".35"/>
+          <!-- garment -->
+          <g filter="url(#twDrop)"><path d="M164 72 L92 98 L36 172 L80 206 L112 182 L116 344 Q200 356 284 344 L288 182 L320 206 L364 172 L308 98 L236 72 C232 96 216 108 200 108 C184 108 168 96 164 72 Z" fill="url(#twBody)"/></g>
+          <g clip-path="url(#twClip)">
+            <rect width="400" height="400" fill="url(#twFade)"/>
+            <path d="M92 98 L36 172 L80 206 L112 182 C108 158 102 128 92 98 Z" fill="#000" opacity=".07"/>
+            <path d="M308 98 L364 172 L320 206 L288 182 C292 158 298 128 308 98 Z" fill="#000" opacity=".07"/>
+            <g fill="none" stroke-linecap="round">
+              <path d="M188 130 C182 200 192 280 186 346" stroke="#fff" stroke-width="32" opacity=".30" filter="url(#twB12)"/>
+              <path d="M146 196 C138 250 150 300 142 346" stroke="#000" stroke-width="16" opacity=".16" filter="url(#twB7)"/>
+              <path d="M262 190 C270 248 258 300 266 346" stroke="#000" stroke-width="16" opacity=".16" filter="url(#twB7)"/>
+              <path d="M116 188 C146 192 168 208 176 238" stroke="#000" stroke-width="10" opacity=".16" filter="url(#twB4)"/>
+              <path d="M284 188 C254 192 232 208 224 238" stroke="#000" stroke-width="10" opacity=".16" filter="url(#twB4)"/>
+              <path d="M166 82 C170 106 184 124 200 124 C216 124 230 106 234 82" stroke="#000" stroke-width="12" opacity=".16" filter="url(#twB7)"/>
+            </g>
+            <rect width="400" height="400" filter="url(#twFabric)" opacity=".22"/>
+          </g>
+          <!-- seams & stitching -->
+          <g fill="none" stroke-linecap="round">
+            <path d="M92 98 C104 130 108 160 112 182" stroke="#000" stroke-width="1.4" opacity=".4"/>
+            <path d="M308 98 C296 130 292 160 288 182" stroke="#000" stroke-width="1.4" opacity=".4"/>
+            <path d="M94 101 C106 132 110 162 114 184" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M306 101 C294 132 290 162 286 184" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M41 166 L85 200" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M359 166 L315 200" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M119 333 Q200 345 281 333" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M119 337 Q200 349 281 337" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <!-- ribbed collar -->
+            <path d="M165 76 C169 98 184 112 200 112 C216 112 231 98 235 76" stroke="#e0dbcd" stroke-width="9"/>
+            <path d="M165 76 C169 98 184 112 200 112 C216 112 231 98 235 76" stroke="#000" stroke-width="8.4" stroke-dasharray="1 2.1" opacity=".13"/>
+            <path d="M167 84 C171 104 186 118 200 118 C214 118 229 104 233 84" stroke="#8a8168" stroke-width=".9" stroke-dasharray="3 2.6" opacity=".38"/>
+            <path d="M164 72 C170 60 230 60 236 72" stroke="#e0dbcd" stroke-width="6"/>
+          </g>
+          <!-- chest print -->
+          <g filter="url(#twDistress)" font-family="Anton, 'Archivo', sans-serif" text-anchor="middle" letter-spacing="1">
+            <text x="200" y="208" font-size="40" fill="#17151f">ANOKO</text>
+            <text x="200" y="248" font-size="40" fill="#17151f">HIMITSU</text>
+            <text x="200" y="298" font-size="52" fill="#ff2e87">SPOT</text>
+          </g>
         </svg>
       </div>
       <div class="goods-caption">
         <div class="g-tag">Apparel — White</div>
         <div class="g-name">バンドTシャツ（ホワイト）</div>
-        <div class="g-price">¥3,800 <span class="note">税込 / S・M・L</span></div>
+        <div class="g-price"><span class="yen">¥3,800</span><span class="note">税込</span></div>
+        <div class="g-sizes"><span>S</span><span>M</span><span>L</span></div>
         <a href="#contact" class="g-btn">問い合わせる</a>
       </div>
     </div>
